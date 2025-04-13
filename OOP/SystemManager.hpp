@@ -1,6 +1,6 @@
 
 #pragma once
-#include "UpgradedOOPGame/Player.hpp"
+#include "Player.hpp"
 #include <vector>
 #include <memory>
 
