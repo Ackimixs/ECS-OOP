@@ -1,7 +1,7 @@
 
 #pragma once
 #include "../core/EntityManager.hpp"
-#include "../core/Components.hpp"
+#include "../components/Health.hpp"
 #include "SystemManager.hpp"
 #include <iostream>
 
@@ -16,7 +16,7 @@ public:
         auto hp = entity->GetComponent<Health>();
         if (hp) {
             hp->hp -= amount;
-            std::cout << "[HealthSystem] Entity " << id << " took " << amount << " damage. HP = " << hp->hp << "\n";
+            std::cout << "[HealthSystem] " << entity->GetName() << " took " << amount << " damage. HP = " << hp->hp << "\n";
             if (hp->hp <= 0) {
                 std::cout << "[HealthSystem] Entity " << id << " has died!\n";
             }

@@ -2,6 +2,7 @@
 #pragma once
 #include <unordered_map>
 #include <memory>
+#include <string>
 #include <typeindex>
 
 class Entity {
@@ -18,6 +19,14 @@ public:
         return nullptr;
     }
 
+    std::string GetName() { return name_ + std::to_string(id_); }
+
+    void SetId(int id) { id_ = id; }
 private:
     std::unordered_map<std::type_index, std::shared_ptr<void>> components_;
+
+protected:
+    std::string name_ = "Entity_";
+
+    int id_ = 0;
 };

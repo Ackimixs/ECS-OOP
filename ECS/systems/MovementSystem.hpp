@@ -1,7 +1,8 @@
 
 #pragma once
 #include "../core/EntityManager.hpp"
-#include "../core/Components.hpp"
+#include "../components/Position.hpp"
+#include "../components/Velocity.hpp"
 #include "SystemManager.hpp"
 #include <iostream>
 

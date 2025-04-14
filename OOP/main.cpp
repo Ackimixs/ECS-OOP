@@ -1,8 +1,11 @@
-
 #include "Player.hpp"
 #include "SystemManager.hpp"
 #include <memory>
 #include <vector>
+#include <chrono>
+#include <thread>
+
+#define FPS 1000.0f
 
 int main() {
     SystemManager manager;
@@ -15,11 +18,29 @@ int main() {
     manager.AddEntity(enemy);
     manager.AddEntity(projectile);
 
-    for (int i = 0; i < 5; ++i) {
-        std::cout << "\n[OOP] Frame " << i + 1 << "\n";
-        manager.Update(0.016);
+    double timeBetweenFrames = 0;
+
+    for (int i = 0; i < 200; ++i) {
+        auto start = std::chrono::high_resolution_clock::now();
+
+        std::cout << "\n[OOP] Frame " << i + 1 << " - tick: " << timeBetweenFrames << "\n";
+        manager.Update(timeBetweenFrames);
+
         if (i == 2) enemy->TakeDamage(30);
         if (i == 4) enemy->TakeDamage(60);
+
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> frameTime = end - start;
+
+        double frameDuration = frameTime.count();
+        double sleepDuration = (1.0 / FPS) - frameDuration;
+
+        if (sleepDuration > 0) {
+            std::this_thread::sleep_for(std::chrono::duration<double>(sleepDuration));
+            timeBetweenFrames = 1.0 / FPS;
+        } else {
+            timeBetweenFrames = frameDuration;
+        }
     }
 
     return 0;
