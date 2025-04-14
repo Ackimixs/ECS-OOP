@@ -29,7 +29,7 @@ int main() {
     for (int i = 0; i < 200; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
 
-        std::cout << "\n[ECS] Frame " << i+1 << " - tick : " << timeBetweenFrames << "\n";
+        std::cout << "\n[ECS] Frame " << i+1 << " - FPS : " << 1/timeBetweenFrames << "\n";
         systems.UpdateAll(timeBetweenFrames);
 
         if (i == 2) {
