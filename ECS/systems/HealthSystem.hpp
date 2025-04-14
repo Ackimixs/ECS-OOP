@@ -13,7 +13,7 @@ public:
 
     void DamageEntity(int id, int amount) {
         auto entity = entityManager.GetEntity(id);
-        auto hp = entity->GetComponent<Health>();
+        auto hp = entity->GetComponent<HealthComponent>();
         if (hp) {
             if (hp->hp <= 0)
             {

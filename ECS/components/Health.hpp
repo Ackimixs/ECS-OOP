@@ -2,12 +2,12 @@
 
 #include "Components.hpp"
 
-class Health : public IComponent
+class HealthComponent : public IComponent
 {
 public:
-    Health() = default;
+    HealthComponent() = default;
 
-    explicit Health(int hp) : hp(hp)
+    explicit HealthComponent(int hp) : hp(hp)
     {
     }
 

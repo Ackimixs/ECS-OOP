@@ -2,16 +2,16 @@
 
 #include "Components.hpp"
 
-class Position : public IComponent
+class PositionComponent : public IComponent
 {
 public:
-    Position() = default;
+    PositionComponent() = default;
 
-    Position(float x, float y) : x(x), y(y)
+    PositionComponent(float x, float y, float z) : x_(x), y_(y), z_(z)
     {
     }
 
-    float x = 0, y = 0;
+    float x_ = 0, y_ = 0, z_ = 0;
 
     void Tick(float dt) override
     {

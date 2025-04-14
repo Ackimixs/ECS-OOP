@@ -2,12 +2,14 @@
 #include <Entity.hpp>
 #include <Health.hpp>
 
-class Character : public Entity
+#include "Actor.hpp"
+
+class Character : public Actor
 {
 public:
-    Character(int health)
+    Character(int health, float x, float y, float z) : Actor(x, y, z)
     {
         name_ = "Character_";
-        AddComponent(std::make_shared<Health>(Health(health)));
+        AddComponent(std::make_shared<HealthComponent>(HealthComponent(health)));
     }
 };

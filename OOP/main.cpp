@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 
-#define FPS 1000.0f
+#define FPS 240.0f
 
 int main() {
     SystemManager manager;
@@ -23,7 +23,7 @@ int main() {
     for (int i = 0; i < 200; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
 
-        std::cout << "\n[OOP] Frame " << i + 1 << " - tick: " << timeBetweenFrames << "\n";
+        std::cout << "\n[OOP] Frame " << i + 1 << " - tick: " << 1/timeBetweenFrames << "\n";
         manager.Update(timeBetweenFrames);
 
         if (i == 2) enemy->TakeDamage(30);

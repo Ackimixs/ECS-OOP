@@ -9,9 +9,8 @@
 class Enemy : public Character
 {
 public:
-    Enemy(int health, float x, float y) : Character(health)
+    Enemy(int health, float x, float y, float z) : Character(health, x, y, z)
     {
         name_ = "Enemy_";
-        AddComponent(std::make_shared<Position>(Position(x, y)));
     }
 };

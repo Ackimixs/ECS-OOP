@@ -1,19 +1,21 @@
 ﻿#pragma once
 
+#include <vector>
+
 #include "Components.hpp"
 
-class Velocity : public IComponent
+class VelocityComponent : public IComponent
 {
 public:
-    Velocity() = default;
+    VelocityComponent() = default;
 
-    Velocity(float dx, float dy) : dx(dx), dy(dy)
+    VelocityComponent(float dx = 0, float dy = 0, float dz = 0) : dx_(dx), dy_(dy), dz_(dz)
     {
     }
-
-    float dx = 0, dy = 0;
 
     void Tick(float dt) override
     {
     }
+
+    float dx_, dy_, dz_;
 };

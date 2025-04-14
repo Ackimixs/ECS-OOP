@@ -12,11 +12,12 @@ public:
 
     void Update(double dt) override {
         for (auto& [id, entity] : entityManager.entities_) {
-            auto pos = entity->GetComponent<Position>();
-            auto vel = entity->GetComponent<Velocity>();
+            auto pos = entity->GetComponent<PositionComponent>();
+            auto vel = entity->GetComponent<VelocityComponent>();
             if (pos && vel) {
-                pos->x += vel->dx * dt * 60;  // simulate 60fps movement
-                pos->y += vel->dy * dt * 60;
+                pos->x_ += vel->dx_ * dt;  // simulate 60fps movement
+                pos->y_ += vel->dy_ * dt;
+                pos->z_ += vel->dz_ * dt;
             }
         }
     }

@@ -5,13 +5,11 @@
 
 #include "Entity.hpp"
 
-class Projectile : public Entity
+class Projectile : public Actor
 {
 public:
-    Projectile(float x, float y)
+    Projectile(float x, float y, float z) : Actor(x, y, z)
     {
         name_ = "Projectile_";
-        AddComponent(std::make_shared<Position>(Position(x, y)));
-        AddComponent(std::make_shared<Velocity>(Velocity{1.0f, 0.5f}));
     }
 };
