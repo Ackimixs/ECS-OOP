@@ -18,6 +18,15 @@ public:
         return id;
     }
 
+    template<typename T>
+    ID AddEntity(const std::shared_ptr<T>& entity)
+    {
+        static_assert(std::is_base_of<Entity, T>::value, "T must inherit from Entity");
+        ID id = next++;
+        entities_[id] = entity;
+        return id;
+    }
+
     std::shared_ptr<Entity> GetEntity(ID id) {
         return entities_[id];
     }

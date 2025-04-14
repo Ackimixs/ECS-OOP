@@ -15,8 +15,8 @@
 
 int main() {
     EntityManager em;
-    auto player = em.CreateEntity<Player>(100, 10, 3);
-    auto enemy = em.CreateEntity<Enemy>(100, 3, 4);
+    auto player = em.AddEntity(std::make_shared<Player>(100, 10 ,3));
+    auto enemy = em.AddEntity(std::make_shared<Enemy>(100, 3, 4));
     em.CreateEntity<Projectile>(3, 4);
 
     SystemManager systems;
