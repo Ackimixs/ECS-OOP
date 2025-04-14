@@ -10,7 +10,7 @@ public:
         players_.push_back(p);
     }
 
-    void Update(float dt) {
+    void Update(double dt) {
         for (auto& p : players_) {
             p->Update(dt);
         }

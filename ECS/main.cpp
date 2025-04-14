@@ -32,10 +32,10 @@ int main() {
         std::cout << "\n[ECS] Frame " << i+1 << " - FPS : " << 1/timeBetweenFrames << "\n";
         systems.UpdateAll(timeBetweenFrames);
 
-        if (i == 2) {
+        if (i % 20 == 0) {
             healthSys->DamageEntity(player, 30);
         }
-        if (i == 4) {
+        if (i % 10 == 0) {
             healthSys->DamageEntity(enemy, 60);
         }
 

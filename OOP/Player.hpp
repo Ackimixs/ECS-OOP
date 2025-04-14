@@ -8,7 +8,7 @@ public:
     Player(std::string name, float x, float y, float dx, float dy, int hp)
         : name_(std::move(name)), x_(x), y_(y), dx_(dx), dy_(dy), hp_(hp) {}
 
-    void Update(float dt) {
+    void Update(double dt) {
         x_ += dx_ * dt * 60;
         y_ += dy_ * dt * 60;
     }
