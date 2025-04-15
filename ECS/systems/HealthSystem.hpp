@@ -15,11 +15,7 @@ public:
         auto entity = entityManager.GetEntity(id);
         auto hp = entity->GetComponent<HealthComponent>();
         if (hp) {
-            if (hp->hp <= 0)
-            {
-                std::cout << "[HealthSystem] " << entity->GetName() << " is already dead !" << std::endl;
-                return;
-            }
+            if (hp->hp <= 0) return;
 
             hp->hp -= amount;
             std::cout << "[HealthSystem] " << entity->GetName() << " took " << amount << " damage. HP = " << hp->hp << "\n";

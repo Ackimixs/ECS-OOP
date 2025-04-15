@@ -13,9 +13,12 @@
 #include "SystemManager.hpp"
 #include "GravitySystem.hpp"
 
-#define FPS 240.0f
-
 int main() {
+
+
+    auto FPS = 60.0f;
+
+    auto prog_start = std::chrono::high_resolution_clock::now();
 
     std::ofstream file("log.csv");
     file << "frame,z,dz\n";
@@ -35,7 +38,7 @@ int main() {
     systems.RegisterSystem(healthSys);
 
     double timeBetweenFrames = 1/FPS;
-    for (int i = 0; i < 240*10; ++i) {
+    for (int i = 0; i < FPS*10; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
 
         std::cout << "\n[ECS] Frame " << i+1 << " - FPS : " << 1/timeBetweenFrames << "\n";
@@ -55,23 +58,18 @@ int main() {
 
         file << i << "," << player->GetComponent<PositionComponent>()->z_ << "," << vc->dz_ << "\n";
 
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> frameTime = end - start;
+        auto sleepUntil = start + std::chrono::duration<double>(1.0 / FPS);
 
-        double frameDuration = frameTime.count(); // en secondes
-        double sleepDuration = (1/FPS) - frameDuration;
+        std::this_thread::sleep_until(sleepUntil);
 
-        if (sleepDuration > 0) {
-            std::this_thread::sleep_for(std::chrono::duration<double>(sleepDuration));
-            timeBetweenFrames = 1/FPS;
-        }
-        else
-        {
-            timeBetweenFrames = frameDuration;
-        }
+        timeBetweenFrames = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - start).count();
     }
 
     file.close();
+
+    auto prog_end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> prog_duration = prog_end - prog_start;
+    std::cout << "\n[ECS] Program duration: " << prog_duration.count() << " seconds\n";
 
     return 0;
 }

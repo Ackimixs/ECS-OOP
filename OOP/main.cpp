@@ -35,12 +35,12 @@ int main() {
         double frameDuration = frameTime.count();
         double sleepDuration = (1.0 / FPS) - frameDuration;
 
-        if (sleepDuration > 0) {
+        if (sleepDuration > 0)
+        {
             std::this_thread::sleep_for(std::chrono::duration<double>(sleepDuration));
-            timeBetweenFrames = 1.0 / FPS;
-        } else {
-            timeBetweenFrames = frameDuration;
         }
+
+        timeBetweenFrames = std::chrono::duration<double>(std::chrono::high_resolution_clock::now() - start).count();
     }
 
     return 0;
