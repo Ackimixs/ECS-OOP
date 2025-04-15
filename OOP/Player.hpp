@@ -5,12 +5,14 @@
 
 class Player {
 public:
-    Player(std::string name, float x, float y, float dx, float dy, int hp)
-        : name_(std::move(name)), x_(x), y_(y), dx_(dx), dy_(dy), hp_(hp) {}
+    Player(std::string name, float x, float y, float z, float dx, float dy, float dz, int hp)
+        : name_(std::move(name)), x_(x), y_(y), z_(z), dx_(dx), dy_(dy), dz_(dz), hp_(hp) {}
 
     void Update(double dt) {
-        x_ += dx_ * dt * 60;
-        y_ += dy_ * dt * 60;
+        x_ += dx_ * dt;
+        y_ += dy_ * dt;
+        dz_ += g * dt;
+        z_ += dz_ * dt;
     }
 
     void Render() const {
@@ -29,9 +31,14 @@ public:
         }
     }
 
+    void Jump() {
+        dz_ = 5.0f; // initial jump velocity
+    }
+
 private:
     std::string name_;
-    float x_, y_;
-    float dx_, dy_;
+    float x_, y_, z_;
+    float dx_, dy_, dz_;
+    float g = 9.81f;
     int hp_;
 };
