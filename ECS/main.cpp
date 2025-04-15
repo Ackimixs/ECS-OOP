@@ -16,29 +16,30 @@
 int main() {
 
 
-    auto FPS = 60.0f;
+    auto FPS = 240.0f;
 
     auto prog_start = std::chrono::high_resolution_clock::now();
 
     std::ofstream file("log.csv");
-    file << "frame,z,dz\n";
+    file << "frame,player_z,player_dz,enemy_z,enemy_dz\n";
 
     EntityManager em;
     auto player = std::make_shared<Player>(100.0, 10.0, 3.0, 5.0);
-    auto vc = player->GetComponent<VelocityComponent>();
     auto playerId = em.AddEntity(player);
-    auto enemyId = em.AddEntity(std::make_shared<Enemy>(100.0, 3.0, 4.0, 12.0));
+
+    auto enemy = std::make_shared<Enemy>(100.0, 3.0, 4.0, 12.0);
+    auto enemyId = em.AddEntity(enemy);
     em.AddEntity(std::make_shared<Projectile>(3.0, 4.0, 5.0));
 
     SystemManager systems;
     systems.RegisterSystem(std::make_shared<GravitySystem>(em));
     systems.RegisterSystem(std::make_shared<MovementSystem>(em));
-    //systems.RegisterSystem(std::make_shared<RenderSystem>(em));
+    systems.RegisterSystem(std::make_shared<RenderSystem>(em));
     auto healthSys = std::make_shared<HealthSystem>(em);
     systems.RegisterSystem(healthSys);
 
     double timeBetweenFrames = 1/FPS;
-    for (int i = 0; i < FPS*10; ++i) {
+    for (int i = 0; i < FPS*4; ++i) {
         auto start = std::chrono::high_resolution_clock::now();
 
         std::cout << "\n[ECS] Frame " << i+1 << " - FPS : " << 1/timeBetweenFrames << "\n";
@@ -53,10 +54,15 @@ int main() {
 
         if (i == 12)
         {
-            vc->dz_ = 40;
+            player->GetComponent<VelocityComponent>()->dz_ = 20;
+            enemy->GetComponent<VelocityComponent>()->dz_ = 20;
         }
 
-        file << i << "," << player->GetComponent<PositionComponent>()->z_ << "," << vc->dz_ << "\n";
+        file << i << ","
+             << player->GetComponent<PositionComponent>()->z_ << ","
+             << player->GetComponent<VelocityComponent>()->dz_ << ","
+             << enemy->GetComponent<PositionComponent>()->z_ << ","
+             << enemy->GetComponent<VelocityComponent>()->dz_ << "\n";
 
         auto sleepUntil = start + std::chrono::duration<double>(1.0 / FPS);
 
